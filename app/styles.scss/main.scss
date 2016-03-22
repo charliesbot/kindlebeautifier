@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'RobotoRegular';
+  src: url('chrome-extension://__MSG_@@extension_id__/font/Roboto-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  font-family: RobotoRegular !important;
+}
+
+body {
+  padding: 50px 0 !important;
+  min-width: 0 !important;
+}
+
+#header, #footer {
+  display: none !important;
+}
+
+#allHighlightedBooks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.yourHighlight {
+  display: none;
+}
+
+.bookMain {
+  display: flex;
+  flex-direction: column;
+  font-family: RobotoRegular !important;
+  flex: 0 200px;
+  padding: 20px;
+  margin: 0;
+}
+
+
+
+#wholePage {
+  width: 90% !important;
+}
