@@ -1,5 +1,7 @@
 'use strict';
 
+import modal from "./chrome/modal";
+
 // var addBookCovers = () => {
 //     console.log('test test paparapa');
 //     var books = document.getElementsByClassName('bookMain');
@@ -11,6 +13,9 @@
 
 //addBookCovers(); // run once on page load
 
+
+modal.addModal(); // run once on page load
+
 let currentId;
 let highlights = {};
 
@@ -19,9 +24,11 @@ var addBookCovers = (node, id) => {
   bookCover.style.height = "300px";
   bookCover.style.width = "200px";
   bookCover.style.marginBottom = "20px";
+  bookCover.style.cursor = "pointer";
   bookCover.style.backgroundSize = "cover";
   bookCover.style.backgroundPosition = "center";
   bookCover.style.backgroundImage = `url('http://images.amazon.com/images/P/${id}.ZTZZZZZZ.jpg')`;
+  bookCover.addEventListener('click', (event) => modal.toggleModal(event, id), false);
   node.insertBefore(bookCover, node.firstChild);
 };
 

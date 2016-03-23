@@ -1,0 +1,16 @@
+#kb-book-modal {
+  transition: opacity 0.3s ease;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  position: fixed;
+  opacity: 0;
+  &.show {
+    z-index: 10;
+    opacity: 1;
+    background-color: transparentize(black, 0.5);
+  }
+
+}
