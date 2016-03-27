@@ -28,13 +28,16 @@ var addBookCovers = (node, id) => {
   bookCover.style.backgroundSize = "cover";
   bookCover.style.backgroundPosition = "center";
   bookCover.style.backgroundImage = `url('http://images.amazon.com/images/P/${id}.ZTZZZZZZ.jpg')`;
-  bookCover.addEventListener('click', (event) => modal.toggleModal(event, id), false);
+  bookCover.addEventListener('click', (event) => modal.toggleModal(event, highlights[id]), false);
   node.insertBefore(bookCover, node.firstChild);
 };
 
 let observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
     let currentNode = mutation.addedNodes[0];
+    if(currentNode === undefined){
+      return;
+    }
     //is a book block
     if (_.includes(currentNode.classList, "bookMain")) {
       currentId = currentNode.id.split("_")[0];
@@ -44,7 +47,10 @@ let observer = new MutationObserver((mutations) => {
     }
     //is a highlight block
     if (_.includes(currentNode.classList, "highlightRow") && currentId !== undefined) {
+      //currentNode.className = "";
+      //currentNode.classList.remove("highlightRow");
       highlights[currentId].push(currentNode);
+      currentNode.remove();
     }
 
   });

@@ -13,4 +13,17 @@
     background-color: transparentize(black, 0.5);
   }
 
+  .kb-highlights-container {
+    width: 90%;
+    margin: 0 auto;
+    color: white;
+  }
+
+  .highlightRow {
+    display: block;
+  }
+  a.linkOut{
+    background: none;
+  }
+
 }
