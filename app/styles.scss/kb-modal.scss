@@ -13,16 +13,49 @@
     background-color: transparentize(black, 0.5);
   }
 
-  .kb-highlights-container {
-    width: 90%;
-    margin: 0 auto;
-    color: white;
+  .kb-dialog-container {
+    display: flex;
+    overflow: hidden;
+    background-color: white;
+    position: absolute;
+    border-radius: 3px;
+    color: black;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    transform: translate(-50%, -50%);
+    min-height: 40vh;
+    max-height: 50vh;
   }
 
-  .highlightRow {
-    display: block;
+  .kb-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 50px;
   }
-  a.linkOut{
+
+  .kb-details-book-cover {
+    width: 250px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+    border: solid 6px white;
+    border-radius: 1px;
+  }
+
+  .kb-highlights-container {
+    padding: 50px;
+    margin: 0;
+    overflow-y: auto;
+  }
+
+  .yourHighlight {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 30px;
+    font-family: RobotoRegular !important;
+  }
+
+  a.linkOut {
     background: none;
   }
 

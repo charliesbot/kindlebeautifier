@@ -2,22 +2,38 @@
 
 import modal from "./chrome/modal";
 
-// var addBookCovers = () => {
-//     console.log('test test paparapa');
-//     var books = document.getElementsByClassName('bookMain');
-//     console.log(books.length);
-//     _.map(books[0], function (node) {
-//         console.log(node);
-//     })
-// };
-
-//addBookCovers(); // run once on page load
-
-
-modal.addModal(); // run once on page load
-
 let currentId;
 let highlights = {};
+
+var pageLoaded = () => {
+  //This removes the existing elements when page loads, and observable can't detect
+  let bookMain = document.getElementsByClassName('bookMain');
+  let highlightRow = document.getElementsByClassName('highlightRow');
+  let collection = _.union(bookMain, highlightRow);
+  _.map(collection, (node) => {
+    domManager(node);
+  })
+};
+
+let domManager = (node) => {
+  if (node === undefined) {
+    return;
+  }
+  //is a book block
+  if (_.includes(node.classList, "bookMain")) {
+    currentId = node.id.split("_")[0];
+    highlights[currentId] = {};
+    highlights[currentId].selections = [];
+    highlights[currentId].bookCover = `http://images.amazon.com/images/P/${currentId}.ZTZZZZZZ.jpg`;
+    document.getElementById(node.id).id = currentId;
+    addBookCovers(node, currentId);
+  }
+  //is a highlight block
+  if (_.includes(node.classList, "highlightRow") && currentId !== undefined) {
+    highlights[currentId].selections.push(node);
+    node.remove();
+  }
+};
 
 var addBookCovers = (node, id) => {
   let bookCover = document.createElement('div');
@@ -27,32 +43,14 @@ var addBookCovers = (node, id) => {
   bookCover.style.cursor = "pointer";
   bookCover.style.backgroundSize = "cover";
   bookCover.style.backgroundPosition = "center";
-  bookCover.style.backgroundImage = `url('http://images.amazon.com/images/P/${id}.ZTZZZZZZ.jpg')`;
+  bookCover.style.backgroundImage = `url('${highlights[id].bookCover}')`;
   bookCover.addEventListener('click', (event) => modal.toggleModal(event, highlights[id]), false);
   node.insertBefore(bookCover, node.firstChild);
 };
 
 let observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
-    let currentNode = mutation.addedNodes[0];
-    if(currentNode === undefined){
-      return;
-    }
-    //is a book block
-    if (_.includes(currentNode.classList, "bookMain")) {
-      currentId = currentNode.id.split("_")[0];
-      highlights[currentId] = [];
-      document.getElementById(currentNode.id).id = currentId;
-      addBookCovers(currentNode, currentId);
-    }
-    //is a highlight block
-    if (_.includes(currentNode.classList, "highlightRow") && currentId !== undefined) {
-      //currentNode.className = "";
-      //currentNode.classList.remove("highlightRow");
-      highlights[currentId].push(currentNode);
-      currentNode.remove();
-    }
-
+    domManager(mutation.addedNodes[0]);
   });
 });
 
@@ -63,6 +61,6 @@ observer.observe(document.getElementById("allHighlightedBooks"), {
   characterData: false
 });
 
-// debounce the function so it's not running constantly
-//var scrollBuzzkill = _.debounce(cleanNewsFeed, 300);
-//document.addEventListener("scroll", scrollBuzzkill);
+// run once on page load
+pageLoaded();
+modal.addModal();

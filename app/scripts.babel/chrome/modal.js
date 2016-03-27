@@ -1,16 +1,20 @@
 'use strict';
 
 const modal = {};
+const modalId = "kb-book-modal";
+const dialogId = "kb-dialog-container";
+const hlId = "kb-highlights-container";
+const detailsId = "kb-details-container";
+const bookCoverId = "kb-details-book-cover";
 
 let cachedDom = {};
-
-const modalId = "kb-book-modal";
-const hlId = "kb-highlights-container";
 let modalActive = false;
 
 let appendHighLights = (highlights) => {
+  console.log("test test ", highlights.bookCover);
+  cachedDom[bookCoverId].src = highlights.bookCover;
   cachedDom[hlId].innerHTML = "";
-  _.map(highlights, (h) => {
+  _.map(highlights.selections, (h) => {
     cachedDom[hlId].appendChild(h);
   });
 };
@@ -23,26 +27,38 @@ let createElement = (type, id, className = id) => {
   return element;
 };
 
+let createBookCoverSection = () => {
+  let detailsContainer = createElement("div", detailsId);
+  let bookCover = createElement("img", bookCoverId);
+  detailsContainer.appendChild(bookCover);
+  return detailsContainer;
+};
+
 modal.toggleModal = (event, highlights) => {
   if (modalActive) {
     $(`#${modalId}`).removeClass('show');
+    document.body.style.overflowY = "auto";
   }
   else {
     appendHighLights(highlights);
+    document.body.style.overflowY = "hidden";
     $(`#${modalId}`).addClass('show');
   }
-  //console.log("test test ", highlights);
   modalActive = !modalActive;
 };
 
 modal.addModal = () => {
   let modalContainer = createElement("div", modalId);
+  let dialogContainer = createElement("div", dialogId);
   let closeButton = createElement("button", "kb-close-modal");
   let highlightsContainer = createElement("div", hlId);
+  let detailsView = createBookCoverSection();
   closeButton.innerHTML = "Close";
   closeButton.addEventListener('click', (event) => modal.toggleModal(event, null), false);
   modalContainer.insertBefore(closeButton, modal.firstChild);
-  modalContainer.appendChild(highlightsContainer);
+  dialogContainer.appendChild(detailsView);
+  dialogContainer.appendChild(highlightsContainer);
+  modalContainer.appendChild(dialogContainer);
   document.body.insertBefore(modalContainer, document.body.firstChild);
 };
 

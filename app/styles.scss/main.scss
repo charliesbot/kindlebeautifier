@@ -7,7 +7,7 @@
   font-style: normal;
 }
 
-html {
+html, body{
   font-family: RobotoRegular !important;
 }
 
@@ -27,6 +27,7 @@ body {
 }
 
 .yourHighlight {
+  //this prevents the highlights appear before the extension has started
   display: none;
 }
 
@@ -38,8 +39,6 @@ body {
   padding: 20px;
   margin: 0;
 }
-
-
 
 #wholePage {
   width: 90% !important;
