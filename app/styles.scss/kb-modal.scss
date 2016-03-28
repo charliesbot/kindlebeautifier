@@ -10,22 +10,51 @@
   &.show {
     z-index: 10;
     opacity: 1;
-    background-color: transparentize(black, 0.5);
+    background-color: transparentize(black, 0.3);
+  }
+
+  .kb-close-modal {
+    position: fixed;
+    top: -35px;
+    right: 10px;
+    color: white;
+    width: 30px;
+    height: 30px;
+    i {
+      font-size: 20px;
+    }
+  }
+
+  .kb-close-modal:hover {
+    color: greenyellow;
   }
 
   .kb-dialog-container {
     display: flex;
-    overflow: hidden;
-    background-color: white;
+    transform-style: preserve-3d;
+    background-color: #F5F5F5;
     position: absolute;
     border-radius: 3px;
     color: black;
     top: 50%;
     left: 50%;
-    width: 80%;
     transform: translate(-50%, -50%);
-    min-height: 40vh;
-    max-height: 50vh;
+    width: 70%;
+    max-width: 80vw;
+    height: 40vh;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .kb-dialog-container:after {
+    content: "";
+    position: absolute;
+    background-color: #E0E0E0;
+    left: 50%;
+    bottom: -10px;
+    width: 97%;
+    height: 30px;
+    border-radius: 3px;
+    transform: translateX(-50%) translateZ(-10px);
   }
 
   .kb-details-container {
@@ -37,14 +66,14 @@
 
   .kb-details-book-cover {
     width: 250px;
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
     border: solid 6px white;
     border-radius: 1px;
   }
 
   .kb-highlights-container {
-    padding: 50px;
-    margin: 0;
+    padding: 0 50px;
+    margin: 30px 0;
     overflow-y: auto;
   }
 
@@ -52,11 +81,33 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0 0 30px;
-    font-family: RobotoRegular !important;
+    font-family: Roboto !important;
+  }
+
+  .highlight {
+    margin-bottom: 5px;
+  }
+
+  .highlightRow.yourHighlight > *:not(.highlight) {
+    margin-right: 20px;
   }
 
   a.linkOut {
     background: none;
+  }
+  a.k4pcReadMore {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  span.highlight {
+    display: block;
+    width: 100%;
+  }
+
+  .deleteHighlight .bullet {
+    display: none;
   }
 
 }

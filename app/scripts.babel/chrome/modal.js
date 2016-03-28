@@ -53,9 +53,11 @@ modal.addModal = () => {
   let closeButton = createElement("button", "kb-close-modal");
   let highlightsContainer = createElement("div", hlId);
   let detailsView = createBookCoverSection();
-  closeButton.innerHTML = "Close";
+  closeButton.innerHTML = "<i class='material-icons'>close</i>";
   closeButton.addEventListener('click', (event) => modal.toggleModal(event, null), false);
-  modalContainer.insertBefore(closeButton, modal.firstChild);
+  modalContainer.addEventListener('click', (event) => modal.toggleModal(event, null), false);
+  dialogContainer.addEventListener('click', (event) => event.stopPropagation() );
+  dialogContainer.appendChild(closeButton);
   dialogContainer.appendChild(detailsView);
   dialogContainer.appendChild(highlightsContainer);
   modalContainer.appendChild(dialogContainer);
