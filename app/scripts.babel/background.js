@@ -1,11 +1,7 @@
 'use strict';
 
-chrome.runtime.onInstalled.addListener(details => {
-  console.log('previousVersion', details.previousVersion);
+chrome.browserAction.onClicked.addListener(function(tab) {
+  chrome.tabs.update({
+    url: "http://kindle.amazon.com/your_highlights"
+  });
 });
-
-chrome.tabs.onUpdated.addListener(tabId => {
-  chrome.pageAction.show(tabId);
-});
-
-console.log('\'Allo \'Allo! Event Page for Page Action');
