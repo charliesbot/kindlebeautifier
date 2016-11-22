@@ -11,4 +11,7 @@ button {
   -moz-user-select: none;
   -ms-user-select: none;
   cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
 }

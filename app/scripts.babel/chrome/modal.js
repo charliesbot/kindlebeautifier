@@ -11,11 +11,10 @@ let cachedDom = {};
 let modalActive = false;
 
 let appendHighLights = (highlights) => {
-  console.log("test test ", highlights.bookCover);
   cachedDom[bookCoverId].src = highlights.bookCover;
   cachedDom[hlId].innerHTML = "";
   _.map(highlights.selections, (h) => {
-    cachedDom[hlId].appendChild(h);
+	cachedDom[hlId].appendChild(h);
   });
 };
 
@@ -36,13 +35,13 @@ let createBookCoverSection = () => {
 
 modal.toggleModal = (event, highlights) => {
   if (modalActive) {
-    $(`#${modalId}`).removeClass('show');
-    document.body.style.overflowY = "auto";
+	$(`#${modalId}`).removeClass('show');
+	document.body.style.overflowY = "auto";
   }
   else {
-    appendHighLights(highlights);
-    document.body.style.overflowY = "hidden";
-    $(`#${modalId}`).addClass('show');
+	appendHighLights(highlights);
+	document.body.style.overflowY = "hidden";
+	$(`#${modalId}`).addClass('show');
   }
   modalActive = !modalActive;
 };
@@ -53,17 +52,17 @@ modal.addModal = () => {
   let closeButton = createElement("button", "kb-close-modal");
   let highlightsContainer = createElement("div", hlId);
   let detailsView = createBookCoverSection();
-  closeButton.innerHTML = "<i class='material-icons'>close</i>";
+  //closeButton.innerHTML = "<i class='material-icons'>close</i>";
+  closeButton.innerHTML = "Close";
   closeButton.addEventListener('click', (event) => modal.toggleModal(event, null), false);
   modalContainer.addEventListener('click', (event) => modal.toggleModal(event, null), false);
-  dialogContainer.addEventListener('click', (event) => event.stopPropagation() );
+  dialogContainer.addEventListener('click', (event) => event.stopPropagation());
   dialogContainer.appendChild(closeButton);
   dialogContainer.appendChild(detailsView);
   dialogContainer.appendChild(highlightsContainer);
   modalContainer.appendChild(dialogContainer);
   document.body.insertBefore(modalContainer, document.body.firstChild);
 };
-
 
 
 module.exports = modal;

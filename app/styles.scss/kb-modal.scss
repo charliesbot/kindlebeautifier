@@ -10,7 +10,7 @@
   &.show {
     z-index: 10;
     opacity: 1;
-    background-color: transparentize(black, 0.3);
+    background-color: rgba(13, 37, 69, .75);
   }
 
   .kb-close-modal {
@@ -20,6 +20,7 @@
     color: white;
     width: 30px;
     height: 30px;
+    font-family: 'Open Sans', sans-serif !important;
     i {
       font-size: 20px;
     }
@@ -31,30 +32,19 @@
 
   .kb-dialog-container {
     display: flex;
-    transform-style: preserve-3d;
-    background-color: #F5F5F5;
     position: absolute;
-    border-radius: 3px;
-    color: black;
+    height: 450px;
+    width: 850px;
+    min-width: 850px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-width: 80vw;
-    height: 450px;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-  }
-
-  .kb-dialog-container:after {
-    content: "";
-    position: absolute;
-    background-color: #E0E0E0;
-    left: 50%;
-    bottom: -10px;
-    width: 97%;
-    height: 30px;
+    padding: 50px;
     border-radius: 3px;
-    transform: translateX(-50%) translateZ(-10px);
+    color: black;
+    background-color: white;
+    box-shadow: 0 15px 40px rgba(6, 21, 44, .7);
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
   }
 
   .kb-details-container {
@@ -66,9 +56,8 @@
 
   .kb-details-book-cover {
     width: 250px;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-    border: solid 6px white;
     border-radius: 1px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 30px 0;
   }
 
   .kb-highlights-container {
@@ -79,13 +68,18 @@
 
   .yourHighlight {
     display: flex;
-    flex-wrap: wrap;
-    margin: 0 0 30px;
-    font-family: Roboto !important;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif !important;
   }
 
-  .highlight {
-    margin-bottom: 5px;
+  .yourHighlight:after {
+    content: '';
+    height: 1px;
+    width: 70%;
+    margin: 20px 0;
+    background-color: #979797;
   }
 
   .highlightRow.yourHighlight > *:not(.highlight) {
@@ -104,10 +98,16 @@
   span.highlight {
     display: block;
     width: 100%;
+    line-height: 1.5;
   }
 
   .deleteHighlight .bullet {
     display: none;
+  }
+
+  // hiding edition rows
+  .readMore, .deleteHighlightForm, .editNote {
+    display: none !important;
   }
 
 }

@@ -11,38 +11,33 @@ var pageLoaded = () => {
   let highlightRow = document.getElementsByClassName('highlightRow');
   let collection = _.union(bookMain, highlightRow);
   _.map(collection, (node) => {
-    domManager(node);
+	domManager(node);
   })
 };
 
 let domManager = (node) => {
   if (node === undefined) {
-    return;
+	return;
   }
   //is a book block
   if (_.includes(node.classList, "bookMain")) {
-    currentId = node.id.split("_")[0];
-    highlights[currentId] = {};
-    highlights[currentId].selections = [];
-    highlights[currentId].bookCover = `http://images.amazon.com/images/P/${currentId}.ZTZZZZZZ.jpg`;
-    document.getElementById(node.id).id = currentId;
-    addBookCovers(node, currentId);
+	currentId = node.id.split("_")[0];
+	highlights[currentId] = {};
+	highlights[currentId].selections = [];
+	highlights[currentId].bookCover = `http://images.amazon.com/images/P/${currentId}.ZTZZZZZZ.jpg`;
+	document.getElementById(node.id).id = currentId;
+	addBookCovers(node, currentId);
   }
   //is a highlight block
   if (_.includes(node.classList, "highlightRow") && currentId !== undefined) {
-    highlights[currentId].selections.push(node);
-    node.remove();
+	highlights[currentId].selections.push(node);
+	node.remove();
   }
 };
 
 var addBookCovers = (node, id) => {
   let bookCover = document.createElement('div');
-  bookCover.style.height = "300px";
-  bookCover.style.width = "200px";
-  bookCover.style.marginBottom = "20px";
-  bookCover.style.cursor = "pointer";
-  bookCover.style.backgroundSize = "cover";
-  bookCover.style.backgroundPosition = "center";
+  bookCover.className = "kb-main-book-cover";
   bookCover.style.backgroundImage = `url('${highlights[id].bookCover}')`;
   bookCover.addEventListener('click', (event) => modal.toggleModal(event, highlights[id]), false);
   node.insertBefore(bookCover, node.firstChild);
@@ -50,7 +45,7 @@ var addBookCovers = (node, id) => {
 
 let observer = new MutationObserver((mutations) => {
   mutations.forEach((mutation) => {
-    domManager(mutation.addedNodes[0]);
+	domManager(mutation.addedNodes[0]);
   });
 });
 
